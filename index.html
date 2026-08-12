@@ -106,6 +106,18 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
 .jump-nav a:active{background:var(--pablo2);}
 .offline-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.14);font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;margin-top:8px;}
 
+.status-bar{display:flex;gap:10px;margin-bottom:14px;}
+.status-card{flex:1;background:#161616;border:1px solid var(--line);border-radius:14px;padding:12px 14px;min-width:0;}
+.status-card .sc-label{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:#888;font-weight:700;margin-bottom:3px;}
+.status-card .sc-main{font-size:19px;font-weight:700;color:#fff;line-height:1.15;}
+.status-card .sc-sub{font-size:11px;color:#aaa;margin-top:2px;line-height:1.4;}
+.status-card.loc{cursor:pointer;}
+.status-card.loc .sc-btn{display:inline-block;margin-top:4px;font-size:11px;font-weight:700;color:#fff;background:var(--pablo2);border:none;border-radius:20px;padding:6px 12px;}
+.status-card.loc.active{border-color:#3a6fa0;}
+.day-wx{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;background:#1c1c1c;border:1px solid var(--line);border-radius:20px;padding:3px 10px;margin-left:8px;white-space:nowrap;color:#ddd;}
+.day-wx .wx-load{color:#777;}
+.stale-note{font-size:9.5px;color:#777;margin-top:2px;}
+
 </style>
 </head>
 <body>
@@ -119,6 +131,19 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
     <div class="offline-badge">Funciona sin wifi (guardar esta pagina en el celular)</div>
   </div>
 
+  <div class="status-bar">
+    <div class="status-card">
+      <div class="sc-label">Hora local (Europa)</div>
+      <div class="sc-main" id="clockEurope">--:--</div>
+      <div class="sc-sub" id="clockEuropeSub">&nbsp;</div>
+    </div>
+    <div class="status-card loc" id="locCard">
+      <div class="sc-label">Tu ubicacion</div>
+      <div class="sc-main" id="locMain">--°</div>
+      <div class="sc-sub" id="locSub">Toca para activar GPS</div>
+    </div>
+  </div>
+
   <div class="note">
     <b>Esto es una prueba de diseño</b> para ver antes de armar los 23 dias completos. Mismo formato de
     siempre (Distancia/Tiempo/Tiempo in situ/Precio, todo verificado) pero en tarjetas con iconos.
@@ -127,7 +152,7 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
     mostrarle la direccion al taxista o para el check-in.
   </div>
 
-  <div class="day-head" id="d5"><span class="icon">📅</span><h2>18/08 (Martes) &ndash; Torre Eiffel + Montmartre</h2><span class="city-tag">Paris - Dia 2</span></div>
+  <div class="day-head" id="d5" data-date="2026-08-18" data-city="Paris"><span class="icon">📅</span><h2>18/08 (Martes) &ndash; Torre Eiffel + Montmartre</h2><span class="city-tag">Paris - Dia 2</span><span class="day-wx" id="wx-d5"><span class="wx-load">⏳</span></span></div>
     <div class="block ">
       <div class="block-head"><span class="icon">🛌</span><span class="time">08:26</span><span class="place">Salida del Hotel Welcome</span></div>
       <p class="plain">Hotel Welcome, 66 Rue de Seine. Dia sin tramos de descanso extra: cadena de caminata + bus sin pausas de sobra.</p>
@@ -444,7 +469,7 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
       <p class="plain">Fin del Dia 5. Caminata total de Pablo: 4,66 km (Agustina +2 km por su paseo sola en Campos Eliseos = 6,66 km).</p>
     </div>
   <div class="mobility-tip">🦴 <b>Movilidad:</b> Dia largo de pie (Eiffel + Montmartre). Los dos tramos mas exigentes son Eiffel→Trocadero (750m, pausa sugerida) y la bajada final por escaleras a Lamarck-Caulaincourt.</div>
-  <div class="day-head" id="d6"><span class="icon">📅</span><h2>19/08 (Miercoles) &ndash; Luxemburgo + Barrio Latino + Vosges + Batobus</h2><span class="city-tag">Paris - Dia 3</span></div>
+  <div class="day-head" id="d6" data-date="2026-08-19" data-city="Paris"><span class="icon">📅</span><h2>19/08 (Miercoles) &ndash; Luxemburgo + Barrio Latino + Vosges + Batobus</h2><span class="city-tag">Paris - Dia 3</span><span class="day-wx" id="wx-d6"><span class="wx-load">⏳</span></span></div>
     <div class="block ">
       <div class="block-head"><span class="icon">🛌</span><span class="time">09:00</span><span class="place">Salida del hotel</span></div>
       <p class="plain">Corrido +45 min desde v14 para llegar al almuerzo a las 11:45.</p>
@@ -770,7 +795,7 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
       <p class="plain">Fin del Dia 6 - el mas liviano de los 3 dias de Paris. Caminata total: 4,73 km, ningun tramo supera los 600m.</p>
     </div>
   <div class="mobility-tip">🦴 <b>Movilidad:</b> El dia mas liviano de Paris en caminata (4,73 km, ningun tramo >600m). El Batobus permite descansar sentados casi 2 horas en el medio del dia.</div>
-  <div class="day-head" id="d7"><span class="icon">📅</span><h2>20/08 (Jueves) &ndash; Paris → Annecy (Dia 1 de Annecy)</h2><span class="city-tag">Paris → Annecy</span></div>
+  <div class="day-head" id="d7" data-date="2026-08-20" data-city="Annecy"><span class="icon">📅</span><h2>20/08 (Jueves) &ndash; Paris → Annecy (Dia 1 de Annecy)</h2><span class="city-tag">Paris → Annecy</span><span class="day-wx" id="wx-d7"><span class="wx-load">⏳</span></span></div>
     <div class="block ">
       <div class="block-head"><span class="icon">🛌</span><span class="time">08:20</span><span class="place">Despertar en el Hotel Welcome</span></div>
       <p class="plain">Desayuno rapido y armado de valijas. Tiempo in situ: 25 minutos.</p>
@@ -1198,7 +1223,7 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
       <p class="plain">Fin del Dia 7.</p>
     </div>
   <div class="mobility-tip">🦴 <b>Movilidad:</b> Muchas paradas cortas de foto en el casco viejo (paso lento, sin apuro): son tramos chicos (<200m) con 6 minutos de pausa en cada una. El Hotel des Alpes NO TIENE ASCENSOR - pedir ayuda con el equipaje en el check-in.</div>
-  <div class="day-head" id="d8"><span class="icon">📅</span><h2>21/08 (Viernes) &ndash; Mercado + Menthon (desayuno) + Talloires (mejillones/playa) + Navibus</h2><span class="city-tag">Annecy - Dia 2</span></div>
+  <div class="day-head" id="d8" data-date="2026-08-21" data-city="Annecy"><span class="icon">📅</span><h2>21/08 (Viernes) &ndash; Mercado + Menthon (desayuno) + Talloires (mejillones/playa) + Navibus</h2><span class="city-tag">Annecy - Dia 2</span><span class="day-wx" id="wx-d8"><span class="wx-load">⏳</span></span></div>
     <div class="block ">
       <div class="block-head"><span class="icon">🛌</span><span class="time">09:00</span><span class="place">Salida del Hotel des Alpes directo al mercado</span></div>
       <p class="plain"></p>
@@ -1391,7 +1416,7 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
       <p class="plain">Fin del Dia 8. El sol se pone a las 20:33 en Annecy - anochece mas temprano que en Paris.</p>
     </div>
   <div class="mobility-tip">🦴 <b>Movilidad:</b> Dia con 2 tramos en bus gratuito de verano (sentados) y 1h35 de barco tambien sentados - el tramo mas largo a pie es el regreso Jardins→hotel (750m*).</div>
-  <div class="day-head" id="d9"><span class="icon">📅</span><h2>22/08 (Sabado) &ndash; Annecy → Ginebra → Lausana → Milan → Roma (dia de viaje largo)</h2><span class="city-tag">Annecy → Roma</span></div>
+  <div class="day-head" id="d9" data-date="2026-08-22" data-city="Roma"><span class="icon">📅</span><h2>22/08 (Sabado) &ndash; Annecy → Ginebra → Lausana → Milan → Roma (dia de viaje largo)</h2><span class="city-tag">Annecy → Roma</span><span class="day-wx" id="wx-d9"><span class="wx-load">⏳</span></span></div>
     <div class="block ">
       <div class="block-head"><span class="icon">⏰</span><span class="time">04:50</span><span class="place">Despertar en el Hotel des Alpes</span></div>
       <p class="plain">Tiempo in situ: 30 minutos.</p>
@@ -1631,5 +1656,180 @@ p.plain{margin:2px 0 0 24px;font-size:13px;color:var(--dim);line-height:1.5;}
   <div class="mobility-tip">🦴 <b>Movilidad:</b> El dia mas largo del viaje: bus + 3 trenes + taxi para cruzar de Annecy a Roma. Las conexiones de Ginebra Aeropuerto (20 min) y sobre todo Lausana (11 min) son las mas ajustadas - bajar con las valijas ya en mano. Instalar la app SBB para ver anden/demoras en tiempo real ese dia.</div>
 
 </div>
+
+<script>
+(function(){
+  "use strict";
+
+  var CITY_COORDS = {
+    "Paris":  {lat:48.8566, lon:2.3522},
+    "Annecy": {lat:45.8992, lon:6.1294},
+    "Roma":   {lat:41.9028, lon:12.4964}
+  };
+  var CITY_TZ = {
+    "Paris":"Europe/Paris","Annecy":"Europe/Paris","Roma":"Europe/Rome"
+  };
+
+  var WX_CODES = {
+    0:["☀️","Despejado"],1:["🌤️","Mayormente despejado"],2:["⛅","Parcial nublado"],3:["☁️","Nublado"],
+    45:["🌫️","Niebla"],48:["🌫️","Niebla helada"],
+    51:["🌦️","Llovizna leve"],53:["🌦️","Llovizna"],55:["🌦️","Llovizna fuerte"],
+    56:["🌧️","Llovizna helada"],57:["🌧️","Llovizna helada"],
+    61:["🌧️","Lluvia leve"],63:["🌧️","Lluvia"],65:["🌧️","Lluvia fuerte"],
+    66:["🌧️","Lluvia helada"],67:["🌧️","Lluvia helada"],
+    71:["🌨️","Nieve leve"],73:["🌨️","Nieve"],75:["🌨️","Nieve fuerte"],77:["🌨️","Granizo nieve"],
+    80:["🌦️","Chubascos"],81:["🌧️","Chubascos"],82:["⛈️","Chubascos fuertes"],
+    85:["🌨️","Chubascos nieve"],86:["🌨️","Chubascos nieve"],
+    95:["⛈️","Tormenta"],96:["⛈️","Tormenta c/granizo"],99:["⛈️","Tormenta fuerte"]
+  };
+  function wxIcon(code){ return (WX_CODES[code]||["🌡️","--"])[0]; }
+  function wxLabel(code){ return (WX_CODES[code]||["🌡️","--"])[1]; }
+
+  // ---------- Reloj hora Europa ----------
+  function pickReferenceTz(){
+    var vis = document.querySelectorAll('.day-head[data-city]');
+    var nowMs = Date.now();
+    var best = null, bestDiff = Infinity;
+    vis.forEach(function(el){
+      var d = el.getAttribute('data-date');
+      if(!d) return;
+      var diff = Math.abs(new Date(d+"T12:00:00Z").getTime() - nowMs);
+      if(diff < bestDiff){ bestDiff = diff; best = el.getAttribute('data-city'); }
+    });
+    return CITY_TZ[best] || "Europe/Paris";
+  }
+  function updateClock(){
+    var tz = pickReferenceTz();
+    try{
+      var now = new Date();
+      var fmt = new Intl.DateTimeFormat('es-AR',{hour:'2-digit',minute:'2-digit',timeZone:tz});
+      var fmtDate = new Intl.DateTimeFormat('es-AR',{weekday:'long',day:'2-digit',month:'2-digit',timeZone:tz});
+      document.getElementById('clockEurope').textContent = fmt.format(now);
+      document.getElementById('clockEuropeSub').textContent = fmtDate.format(now) + " · " + tz.split('/')[1];
+    }catch(e){}
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // ---------- Cache localStorage ----------
+  function cacheGet(key, maxAgeMs){
+    try{
+      var raw = localStorage.getItem(key);
+      if(!raw) return null;
+      var obj = JSON.parse(raw);
+      if(maxAgeMs && (Date.now() - obj.t) > maxAgeMs) return {stale:true, data:obj.d, t:obj.t};
+      return {stale:false, data:obj.d, t:obj.t};
+    }catch(e){ return null; }
+  }
+  function cacheSet(key, data){
+    try{ localStorage.setItem(key, JSON.stringify({t:Date.now(), d:data})); }catch(e){}
+  }
+  function ago(ts){
+    var mins = Math.round((Date.now()-ts)/60000);
+    if(mins < 1) return "recien";
+    if(mins < 60) return mins+" min";
+    return Math.round(mins/60)+"h";
+  }
+
+  // ---------- Pronostico por ciudad (dias del itinerario) ----------
+  function fetchCityForecast(city){
+    var key = "wx_city_"+city;
+    var cached = cacheGet(key, 2*60*60*1000); // 2 horas
+    var coords = CITY_COORDS[city];
+    var url = "https://api.open-meteo.com/v1/forecast?latitude="+coords.lat+"&longitude="+coords.lon+
+              "&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=16";
+    function render(data, stale, ts){
+      var chips = document.querySelectorAll('.day-head[data-city="'+city+'"]');
+      chips.forEach(function(el){
+        var date = el.getAttribute('data-date');
+        var wxEl = document.getElementById('wx-'+el.id);
+        if(!wxEl) return;
+        var idx = data.daily.time.indexOf(date);
+        if(idx === -1){
+          wxEl.innerHTML = '<span class="wx-load">Sin pronostico aun</span>';
+          return;
+        }
+        var code = data.daily.weathercode[idx];
+        var tmax = Math.round(data.daily.temperature_2m_max[idx]);
+        var tmin = Math.round(data.daily.temperature_2m_min[idx]);
+        wxEl.innerHTML = wxIcon(code)+' '+tmin+'°/'+tmax+'°'+(stale?' <span class="wx-load">(hace '+ago(ts)+')</span>':'');
+      });
+    }
+    if(cached && !cached.stale){ render(cached.data, false, cached.t); return; }
+    if(cached && cached.stale){ render(cached.data, true, cached.t); } // mostrar viejo mientras refresca
+    fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      if(!data || !data.daily) throw new Error("bad data");
+      cacheSet(key, data);
+      render(data, false, Date.now());
+    }).catch(function(){
+      if(!cached){
+        document.querySelectorAll('.day-head[data-city="'+city+'"]').forEach(function(el){
+          var wxEl = document.getElementById('wx-'+el.id);
+          if(wxEl) wxEl.innerHTML = '<span class="wx-load">Sin conexion</span>';
+        });
+      }
+    });
+  }
+  function loadAllForecasts(){
+    var cities = {};
+    document.querySelectorAll('.day-head[data-city]').forEach(function(el){ cities[el.getAttribute('data-city')] = true; });
+    Object.keys(cities).forEach(fetchCityForecast);
+  }
+  loadAllForecasts();
+
+  // ---------- GPS + clima en tu ubicacion actual ----------
+  var locCard = document.getElementById('locCard');
+  var locMain = document.getElementById('locMain');
+  var locSub = document.getElementById('locSub');
+  var geoTimer = null;
+
+  function renderLocWeather(lat, lon){
+    var key = "wx_here";
+    fetch("https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weathercode&timezone=auto")
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        cacheSet(key, data);
+        paintLoc(data, false, Date.now());
+      }).catch(function(){
+        var cached = cacheGet(key, null);
+        if(cached) paintLoc(cached.data, true, cached.t);
+        else { locMain.textContent = "--°"; locSub.textContent = "Sin conexion para el clima"; }
+      });
+  }
+  function paintLoc(data, stale, ts){
+    if(!data || !data.current) return;
+    var code = data.current.weathercode;
+    var temp = Math.round(data.current.temperature_2m);
+    locMain.textContent = wxIcon(code)+' '+temp+'°C';
+    locSub.textContent = wxLabel(code) + (stale ? ' · hace '+ago(ts) : ' · en vivo');
+  }
+  function activateGPS(){
+    if(!navigator.geolocation){
+      locSub.textContent = "Este navegador no soporta GPS";
+      return;
+    }
+    locSub.textContent = "Buscando tu ubicacion...";
+    navigator.geolocation.getCurrentPosition(function(pos){
+      locCard.classList.add('active');
+      renderLocWeather(pos.coords.latitude, pos.coords.longitude);
+      if(geoTimer) clearInterval(geoTimer);
+      geoTimer = setInterval(function(){
+        navigator.geolocation.getCurrentPosition(function(p2){
+          renderLocWeather(p2.coords.latitude, p2.coords.longitude);
+        }, function(){}, {maximumAge:600000, timeout:10000});
+      }, 20*60*1000); // cada 20 min
+    }, function(err){
+      if(err.code === 1) locSub.textContent = "Permiso denegado - activalo en Ajustes";
+      else locSub.textContent = "No se pudo obtener el GPS, toca para reintentar";
+    }, {enableHighAccuracy:false, timeout:10000, maximumAge:300000});
+  }
+  locCard.addEventListener('click', activateGPS);
+
+  // Si ya hay cache de ubicacion, mostrarla de entrada (stale) mientras se reactiva con el toque
+  var cachedHere = cacheGet("wx_here", null);
+  if(cachedHere){ paintLoc(cachedHere.data, true, cachedHere.t); locSub.textContent += " · toca para actualizar"; }
+
+})();
+</script>
 </body>
 </html>
